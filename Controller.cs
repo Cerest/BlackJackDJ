@@ -28,6 +28,16 @@ namespace ACNS_Blackjack
                 MessageBox.Show("You Lose!");
             }
         }
+        
+        public int GetHandValue(Model.Hand hand)
+        {
+            int sum = 0;
+            foreach(Model.Card c in hand.Cards)
+            {
+                hand.AddValue(c, ref sum);
+            }
+            return sum;
+        }
 
         private void Fold()
         {
