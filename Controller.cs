@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using static ACNS_Blackjack.Model;
 
 namespace ACNS_Blackjack
 {
@@ -13,70 +13,130 @@ namespace ACNS_Blackjack
         int PlayerSum;
         int ComputerSum;
         decimal decBet;
-        bool PlayerDone;
-        bool ComputerDone;
-        bool PlayerTurn;
+        bool playing;
+        object Lockobj;
+        
+        Deck deck;
+        Hand dealerHand;
+        Hand playerHand;
+        string PlayerAction;
+
+        public bool Playing 
+        {
+            get
+            {
+                lock (Lockobj)
+                {
+                    return playing;
+                }
+            }
+            set
+            {
+                lock (Lockobj)
+                {
+                    playing = value;
+                }
+            }
+        }
+
+        public Controller()
+        {
+            deck = new Deck();
+        }
+
+        public void PlayGame()
+        {
+            Playing = true;
+            dealerHand = new Hand(2, deck);
+            playerHand = new Hand(2, deck);
+            PlayerTurn();
+            DealerTurn();
+        }
+
+        public void PlayerTurn()
+        {
+            while (Playing)
+            {
+                if (PlayerAction == "")
+                {
+                    continue;
+                }
+                else
+                {
+                    switch (PlayerAction)
+                    {
+                        case "Hit":
+                            Hit(playerHand);
+                            PlayerSum = GetHandValue(playerHand);
+                            CheckBust();
+                            break;
+                        case "Stand":
+                            Playing = false;
+                            break;
+                    }
+                }
+            } 
+        }
+
 
         private void CheckWin()
         {
             if (PlayerSum == 21 || PlayerSum > ComputerSum)
             {
-                MessageBox.Show(String.Format("You win {0:C}!", (decBet + (decBet/3)) ));
+                //player win
             }
             if (ComputerSum == 21 || ComputerSum > PlayerSum)
             {
-                MessageBox.Show("You Lose!");
+                //dealer win
             }
-        }
-        
-        public int GetHandValue(Model.Hand hand)
-        {
-            int sum = 0;
-            foreach(Model.Card c in hand.Cards)
-            {
-                hand.AddValue(c, ref sum);
-            }
-            return sum;
         }
 
-        private void Fold()
+        public void CheckBust()
         {
-            if (PlayerDone)
-            {
-                PlayerSum = 0;
-                if (ComputerSum <= PlayerSum)
-                {
-                    ComputerSum = 1;
-                }
-                CheckWin();
-            }
-            else if (ComputerDone)
-            {
-                ComputerSum = 0;
-                if (PlayerSum <= ComputerSum)
-                {
-                    PlayerSum = 1;
-                }
-                CheckWin();
-            }
+            if (ComputerSum > 21) ;//Player win
+            if (PlayerSum > 21) ;//CPU win
         }
-        private void hit()
+        private void Hit(Model.Hand hand)
         {
-            Model.Deck deck = new Model.Deck();
-            Model.Hand hand = new Model.Hand(1, deck);
             deck.DrawCard(hand);
         }
-        private void Bust()
+
+        private void DealerTurn()
         {
-            if (ComputerSum > 21)
+            while (Playing)
             {
-                ComputerSum = 0;
-            }
-            else if (PlayerSum > 21)
-            {
-                PlayerSum = 0;
+                if (ComputerSum >= 16)
+                {
+                    int rnd = new Random().Next(0, 10);
+                    if (rnd >= 4)
+                    {
+                        Playing = false;
+                    }
+                    else
+                    {
+                        Hit(dealerHand);
+                        ComputerSum = GetHandValue(dealerHand);
+                    }
+                } 
+                else
+                {
+                    Hit(dealerHand);
+                    ComputerSum = GetHandValue(dealerHand); 
+                }
+                CheckBust();
             }
             CheckWin();
         }
+        
+        private int GetHandValue(Model.Hand hand)
+        {
+            int i = 0;
+            foreach(Model.Card c in hand.Cards)
+            {
+                hand.AddValue(c, ref i);
+            }
+            return i;
+        }
     }
+
 }
