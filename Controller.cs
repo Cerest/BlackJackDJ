@@ -16,6 +16,9 @@ namespace ACNS_Blackjack
         bool PlayerDone;
         bool ComputerDone;
         bool PlayerTurn;
+        Deck deck = new Deck();
+        Hand dealerHand = new Hand(2, deck);
+        Hand playerHand = new Hand(2, deck);
 
         private void CheckWin()
         {
@@ -25,18 +28,8 @@ namespace ACNS_Blackjack
             }
             if (ComputerSum == 21 || ComputerSum > PlayerSum)
             {
-                MessageBox.Show("You Lose!");
+                MessageBox.Show(string.Format("You Lose {0}!", decBet));
             }
-        }
-        
-        public int GetHandValue(Model.Hand hand)
-        {
-            int sum = 0;
-            foreach(Model.Card c in hand.Cards)
-            {
-                hand.AddValue(c, ref sum);
-            }
-            return sum;
         }
 
         private void Fold()
@@ -60,10 +53,8 @@ namespace ACNS_Blackjack
                 CheckWin();
             }
         }
-        private void hit()
+        private void hit(Model.Hand hand)
         {
-            Model.Deck deck = new Model.Deck();
-            Model.Hand hand = new Model.Hand(1, deck);
             deck.DrawCard(hand);
         }
         private void Bust()
@@ -77,6 +68,43 @@ namespace ACNS_Blackjack
                 PlayerSum = 0;
             }
             CheckWin();
+        }
+
+        private void stand()
+        {
+            if (PlayerTurn)
+            {
+                DealerTurn();
+            }
+            else
+            {
+
+            }
+        }
+
+        private void DealerTurn()
+        {
+            if (ComputerSum >= 16)
+            {
+                PlayerTurn = false;
+                int Max = dealerHand.cards.Max;
+                int Min = dealerHand.cards[1];
+                int delta = Max - Min;
+                int rnd = new Random(0, delta);
+                
+                if (rnd >= 10)
+                {
+                    stand();
+                }
+                else
+                {
+                    hit(dealerHand);
+                }
+            }
+            else
+            {
+                hit(dealerHand);
+            }
         }
     }
 }
