@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ACNS_Blackjack
 {
@@ -91,12 +92,12 @@ namespace ACNS_Blackjack
 
                     x = width * ((int)this.Value - 1); //the Ace has the value of 1 (see the Enum), so the X coordinate will be the starting (first one), that's why we have to subtract 1. The card 6 has the total width of the first 6 cards (6*73=438) minus the total width of the first 5 cards (5*73=365). Of course it is 73. The starting X coordinate is at the end of the 5th card (or the start of the left side of the 6th card). Hope you understand. :)
 
-                    Bitmap source = new Bitmap(Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"/path.png")));//the original cards.png image
+                    Bitmap source = new Bitmap(Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../..//cards.png")));//the original cards.png image
                     Bitmap img = new Bitmap(width, height);//this will be the created one for each card
                     Graphics g = Graphics.FromImage(img);
                     g.DrawImage(source, new Rectangle(0, 0, width, height), new Rectangle(x, y, width, height), GraphicsUnit.Pixel);//here we slice the original into pieces
                     g.Dispose();
-                    this.image = img;
+                    this.image = img;  
                 }
             }
             #endregion

@@ -5,16 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ACNS_Blackjack"
         mc:Ignorable="d"
-        Title="Window2" Height="500" Width="1109">
+        WindowStartupLocation="CenterScreen"
+        Title="DOUP Blackjack" Height="500" Width="865">
     <Grid>
         <Grid x:Name="Table" Background="#FF348D13">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="66*"/>
+                <ColumnDefinition Width="88*"/>
                 <ColumnDefinition Width="430*"/>
                 <ColumnDefinition Width="29*"/>
                 <ColumnDefinition Width="303*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="Bet1" Content="$1" HorizontalAlignment="Left" Height="86" Margin="58,342,0,0" VerticalAlignment="Top" Width="82" FontFamily="Times New Roman" FontSize="48" Foreground="White" BorderBrush="{x:Null}" Grid.Column="1">
+            <Button x:Name="Bet1" Click="Bet1_Click" Content="$1" HorizontalAlignment="Left" Height="86" Margin="58,342,0,0" VerticalAlignment="Top" Width="82" FontFamily="Times New Roman" FontSize="48" Foreground="White" BorderBrush="{x:Null}" Grid.Column="1">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="50" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#FF206612"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#00000000"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#FF206612"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
                 <Button.Background>
                     <RadialGradientBrush>
                         <GradientStop Color="#00000000" Offset="1"/>
@@ -22,7 +40,24 @@
                     </RadialGradientBrush>
                 </Button.Background>
             </Button>
-            <Button x:Name="Bet5" Content="$5" Grid.Column="1" HorizontalAlignment="Left" Height="86" Margin="140,342,0,0" VerticalAlignment="Top" Width="96" FontFamily="Times New Roman" FontSize="48" Foreground="White" BorderBrush="{x:Null}">
+            <Button x:Name="Bet5" Click="Bet5_Click" Content="$5" Grid.Column="1" HorizontalAlignment="Left" Height="86" Margin="140,342,0,0" VerticalAlignment="Top" Width="96" FontFamily="Times New Roman" FontSize="48" Foreground="White" BorderBrush="{x:Null}">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="50" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#FF206612"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#00000000"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#FF206612"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
                 <Button.Background>
                     <RadialGradientBrush>
                         <GradientStop Color="#00000000" Offset="1"/>
@@ -30,7 +65,24 @@
                     </RadialGradientBrush>
                 </Button.Background>
             </Button>
-            <Button x:Name="Bet10" Content="$10" Grid.Column="1" HorizontalAlignment="Left" Height="86" Margin="236,342,0,0" VerticalAlignment="Top" Width="94" FontFamily="Times New Roman" FontSize="48" Foreground="White" BorderBrush="{x:Null}">
+            <Button x:Name="Bet10" Click="Bet10_Click" Content="$10" Grid.Column="1" HorizontalAlignment="Left" Height="86" Margin="236,342,0,0" VerticalAlignment="Top" Width="94" FontFamily="Times New Roman" FontSize="48" Foreground="White" BorderBrush="{x:Null}">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="50" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#FF206612"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#00000000"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#FF206612"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
                 <Button.Background>
                     <RadialGradientBrush>
                         <GradientStop Color="#00000000" Offset="1"/>
@@ -38,7 +90,24 @@
                     </RadialGradientBrush>
                 </Button.Background>
             </Button>
-            <Button x:Name="Hit" Content="Hit" Grid.Column="2" HorizontalAlignment="Left" Height="86" Margin="19,342,0,0" VerticalAlignment="Top" Width="107" FontFamily="Times New Roman" FontSize="48" Foreground="White" BorderBrush="{x:Null}" Grid.ColumnSpan="2">
+            <Button x:Name="Hit" Content="Hit" Grid.Column="2" Click="Hit_Click" HorizontalAlignment="Left" Height="86" Margin="19,342,0,0" VerticalAlignment="Top" Width="107" FontFamily="Times New Roman" FontSize="48" Foreground="White" BorderBrush="{x:Null}" Grid.ColumnSpan="2">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="50" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#FF206612"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#00000000"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#FF206612"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
                 <Button.Background>
                     <RadialGradientBrush>
                         <GradientStop Color="#00000000" Offset="1"/>
@@ -46,7 +115,24 @@
                     </RadialGradientBrush>
                 </Button.Background>
             </Button>
-            <Button x:Name="Stand" Content="Stand" Grid.Column="3" HorizontalAlignment="Left" Height="86" Margin="126,342,0,0" VerticalAlignment="Top" Width="146" FontFamily="Times New Roman" FontSize="48" Foreground="White" BorderBrush="{x:Null}">
+            <Button x:Name="Stand" Content="Stand" Click="Stand_Click" Grid.Column="3" HorizontalAlignment="Left" Height="86" Margin="126,342,0,0" VerticalAlignment="Top" Width="146" FontFamily="Times New Roman" FontSize="48" Foreground="White" BorderBrush="{x:Null}">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="50" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#FF206612"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#00000000"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#FF206612"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
                 <Button.Background>
                     <RadialGradientBrush>
                         <GradientStop Color="#00000000" Offset="1"/>
@@ -55,24 +141,51 @@
                 </Button.Background>
             </Button>
 
-            <Border  BorderBrush="DarkGreen" BorderThickness="1" Grid.ColumnSpan="5" Grid.Column="0" HorizontalAlignment="Center" Height="128" Margin="0,197,0,0" VerticalAlignment="Top" Width="1080" CornerRadius="5">
-                <Border.Effect>
-                    <DropShadowEffect ShadowDepth="0"/>
-                </Border.Effect>
-                <StackPanel x:Name="Dealerhand"/>
+            <Border x:Name="Mask" Width="73" Height="97"  Margin="0,0,0,250" Panel.ZIndex="1000">
+                <Border.Background>
+                    <ImageBrush ImageSource="CardBack.png"/>
+                </Border.Background>
             </Border>
-            <Border BorderBrush="DarkGreen" BorderThickness="1" Grid.ColumnSpan="5" Grid.Column="0" HorizontalAlignment="Center" Height="128" Margin="0.2,57,0,0" VerticalAlignment="Top" Width="1080" CornerRadius="5">
+            <Border BorderBrush="DarkGreen" BorderThickness="1" Grid.ColumnSpan="5" Grid.Column="0" HorizontalAlignment="Center" Height="103" Margin="0,57,0,0" VerticalAlignment="Top" Width="845" CornerRadius="5">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="0"/>
                 </Border.Effect>
-                <StackPanel x:Name="Playerhand"/>
+                <StackPanel x:Name="Dealerhand" Orientation="Horizontal"/>
+            </Border>
+            <Border BorderBrush="DarkGreen" BorderThickness="1" Grid.ColumnSpan="5" Grid.Column="0" HorizontalAlignment="Center" Height="103" Margin="0,197,0,0" VerticalAlignment="Top" Width="845" CornerRadius="5">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="0"/>
+                </Border.Effect>
+                <StackPanel x:Name="Playerhand" Orientation="Horizontal"/>
             </Border>
 
             <Label x:Name="DealerLabel" Content="Dealer" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.ColumnSpan="5"  Height="54" Width="108" Foreground="NavajoWhite" FontSize="36" FontFamily="Times New Roman"/>
+            <Label Content="Pot:" HorizontalAlignment="Left" Margin="15,324,0,0" VerticalAlignment="Top"/>
+            <Label Content="Money:" HorizontalAlignment="Left" Margin="15,350,0,0" VerticalAlignment="Top"/>
+            <Label Content="$0" x:Name="PotLabel" HorizontalAlignment="Left" Margin="58,324,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+            <Label Content="$100" x:Name="WalletLabel" HorizontalAlignment="Left" Margin="58,350,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
         </Grid>
         <Grid x:Name="TitleScreen" Background="#FF348D13">
             <Label Content="DOUP BlackJack" HorizontalAlignment="Center" Height="108" Margin="0,54,0,0" VerticalAlignment="Top"  Background="Transparent" FontFamily="Times New Roman" FontSize="72" FontStyle="Italic" Grid.Column="1" Foreground="#FFE4E400" Grid.ColumnSpan="3"/>
-            <Button x:Name="Play" Content="Click To Play" Click="Play_Click" HorizontalAlignment="Center" Height="100" Margin="0,343,0,0" VerticalAlignment="Top" Width="310" FontFamily="Times New Roman" FontSize="48" Foreground="#FFE4E400" Background="Transparent" BorderBrush="Transparent" Grid.ColumnSpan="3"/>
+            <Button x:Name="Play" Content="Click To Play" Click="Play_Click" HorizontalAlignment="Center" Height="100" Margin="0,343,0,0" VerticalAlignment="Top" Width="310" FontFamily="Times New Roman" FontSize="48" Foreground="#FFE4E400" Background="Transparent" BorderBrush="Transparent" Grid.ColumnSpan="3">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="50" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#FF206612"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#00000000"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#FF206612"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
         </Grid>
     </Grid>
 </Window>

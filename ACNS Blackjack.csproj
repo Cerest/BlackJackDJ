@@ -100,5 +100,64 @@
   <ItemGroup>
     <Resource Include="cards.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ace_of_Clubs.bmp" />
+    <Resource Include="Ace_of_Diamonds.bmp" />
+    <Resource Include="Ace_of_Hearts.bmp" />
+    <Resource Include="Ace_of_Spades.bmp" />
+    <Resource Include="CardBack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Eight_of_Clubs.bmp" />
+    <Resource Include="Eight_of_Diamonds.bmp" />
+    <Resource Include="Eight_of_Hearts.bmp" />
+    <Resource Include="Eight_of_Spades.bmp" />
+    <Resource Include="Five_of_Clubs.bmp" />
+    <Resource Include="Five_of_Diamonds.bmp" />
+    <Resource Include="Five_of_Hearts.bmp" />
+    <Resource Include="Five_of_Spades.bmp" />
+    <Resource Include="Four_of_Clubs.bmp" />
+    <Resource Include="Four_of_Diamonds.bmp" />
+    <Resource Include="Four_of_Hearts.bmp" />
+    <Resource Include="Four_of_Spades.bmp" />
+    <Resource Include="Jack_of_Clubs.bmp" />
+    <Resource Include="Jack_of_Diamonds.bmp" />
+    <Resource Include="Jack_of_Hearts.bmp" />
+    <Resource Include="Jack_of_Spades.bmp" />
+    <Resource Include="King_of_Clubs.bmp" />
+    <Resource Include="King_of_Diamonds.bmp" />
+    <Resource Include="King_of_Hearts.bmp" />
+    <Resource Include="King_of_Spades.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Nine_of_Clubs.bmp" />
+    <Resource Include="Nine_of_Diamonds.bmp" />
+    <Resource Include="Nine_of_Hearts.bmp" />
+    <Resource Include="Nine_of_Spades.bmp" />
+    <Resource Include="Queen_of_Clubs.bmp" />
+    <Resource Include="Queen_of_Diamonds.bmp" />
+    <Resource Include="Queen_of_Hearts.bmp" />
+    <Resource Include="Queen_of_Spades.bmp" />
+    <Resource Include="Seven_of_Clubs.bmp" />
+    <Resource Include="Seven_of_Diamonds.bmp" />
+    <Resource Include="Seven_of_Hearts.bmp" />
+    <Resource Include="Seven_of_Spades.bmp" />
+    <Resource Include="Six_of_Clubs.bmp" />
+    <Resource Include="Six_of_Diamonds.bmp" />
+    <Resource Include="Six_of_Hearts.bmp" />
+    <Resource Include="Six_of_Spades.bmp" />
+    <Resource Include="Ten_of_Clubs.bmp" />
+    <Resource Include="Ten_of_Diamonds.bmp" />
+    <Resource Include="Ten_of_Hearts.bmp" />
+    <Resource Include="Ten_of_Spades.bmp" />
+    <Resource Include="Three_of_Clubs.bmp" />
+    <Resource Include="Three_of_Diamonds.bmp" />
+    <Resource Include="Three_of_Hearts.bmp" />
+    <Resource Include="Three_of_Spades.bmp" />
+    <Resource Include="Two_of_Clubs.bmp" />
+    <Resource Include="Two_of_Diamonds.bmp" />
+    <Resource Include="Two_of_Hearts.bmp" />
+    <Resource Include="Two_of_Spades.bmp" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

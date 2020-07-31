@@ -1,9 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using static ACNS_Blackjack.Model;
 
 namespace ACNS_Blackjack
@@ -12,36 +17,68 @@ namespace ACNS_Blackjack
     {
         int PlayerSum;
         int ComputerSum;
-        decimal decBet;
         bool playing;
-        object Lockobj;
-        
-        Deck deck;
-        Hand dealerHand;
-        Hand playerHand;
-        string PlayerAction;
+        object PlayLock;
+        object TurnLock;
+        public int wallet = 100;
+        public int pot = 0;
 
-        public bool Playing 
+        Deck deck;
+        public Hand dealerHand;
+        public Hand playerHand;
+        private string playerAction;
+        StackPanel dealerField;
+        StackPanel playerField;
+        Border mask;
+        Label wa;
+        Label po;
+
+        public bool Playing
         {
             get
             {
-                lock (Lockobj)
+                lock (PlayLock)
                 {
                     return playing;
                 }
             }
             set
             {
-                lock (Lockobj)
+                lock (PlayLock)
                 {
                     playing = value;
                 }
             }
         }
 
-        public Controller()
+        public string PlayerAction
+        {
+            get
+            {
+                lock (TurnLock)
+                {
+                    return playerAction;
+                }
+            }
+            set
+            {
+                lock (TurnLock)
+                {
+                    playerAction = value;
+                }
+            }
+        }
+
+        public Controller(StackPanel d, StackPanel s, Border m, Label w, Label p)
         {
             deck = new Deck();
+            PlayLock = new object();
+            TurnLock = new object();
+            dealerField = d;
+            playerField = s;
+            mask = m;
+            po = p;
+            wa = w;
         }
 
         public void PlayGame()
@@ -49,8 +86,38 @@ namespace ACNS_Blackjack
             Playing = true;
             dealerHand = new Hand(2, deck);
             playerHand = new Hand(2, deck);
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                mask.Visibility = Visibility.Visible;
+            });
+            foreach (Model.Card c in dealerHand.Cards)
+            {
+                AddCardVisual(dealerField, c);
+            }
+            foreach (Model.Card c in playerHand.Cards)
+            {
+                AddCardVisual(playerField, c);
+            }
+
+            PlayerSum = GetHandValue(playerHand);
+            ComputerSum = GetHandValue(playerHand);
+            CheckWin();
             PlayerTurn();
             DealerTurn();
+        }
+        private void AddCardVisual(StackPanel field, Model.Card c)
+        {
+            string s = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../..//" + c.Value + "_of_" + c.Suit + ".bmp");
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+
+                Image cardImage = new Image();
+                cardImage.Width = 73;
+                cardImage.Height = 97;
+                cardImage.Margin = new Thickness(2);
+                cardImage.Source = new BitmapImage(new Uri(s));
+                field.Children.Add(cardImage);
+            });
         }
 
         public void PlayerTurn()
@@ -66,72 +133,154 @@ namespace ACNS_Blackjack
                     switch (PlayerAction)
                     {
                         case "Hit":
-                            Hit(playerHand);
+                            PlayerAction = "";
+                            Hit(playerField, playerHand);
                             PlayerSum = GetHandValue(playerHand);
                             CheckBust();
+                            CheckWin(); 
                             break;
                         case "Stand":
-                            Playing = false;
-                            break;
+                            PlayerAction = "";
+                            PlayerSum = GetHandValue(playerHand); 
+                            Application.Current.Dispatcher.Invoke(() =>
+                            {
+                                mask.Visibility = Visibility.Hidden;
+                            });
+                            return;
                     }
                 }
-            } 
+            }
         }
-
 
         private void CheckWin()
         {
-            if (PlayerSum == 21 || PlayerSum > ComputerSum)
+            if (!Playing)
             {
-                //player win
-            }
-            if (ComputerSum == 21 || ComputerSum > PlayerSum)
-            {
-                //dealer win
+                if (PlayerSum == ComputerSum)
+                {
+                    MessageBox.Show("Tie game!");
+                    Console.Beep(587, 333);
+                    Console.Beep(261, 334);
+                    Console.Beep(658, 333); 
+                    CleanUp();
+                }
+                if (PlayerSum == 21 || PlayerSum > ComputerSum)
+                {
+                    MessageBox.Show("You win!"); 
+                    Console.Beep(370, 500);
+                    Console.Beep(392, 250);
+                    Console.Beep(330, 250);
+                    Console.Beep(440, 500);
+                    pot += pot * 2;
+                    CleanUp();
+                }
+                if (ComputerSum == 21 || ComputerSum > PlayerSum)
+                {
+                    MessageBox.Show("Dealer wins!");
+                    Console.Beep(261, 400);
+                    Console.Beep(174, 600);
+                    pot = 0;
+                    CleanUp();
+                }
             }
         }
 
         public void CheckBust()
         {
-            if (ComputerSum > 21) ;//Player win
-            if (PlayerSum > 21) ;//CPU win
+            if (ComputerSum > 21) 
+            { 
+                MessageBox.Show("You win!");
+                Console.Beep(370, 500);
+                Console.Beep(392, 250);
+                Console.Beep(330, 250);
+                Console.Beep(440, 500);
+                Console.Beep(600, 400);
+                Console.Beep(261, 400);
+                pot = pot * 2;
+                CleanUp(); 
+            }
+            if (PlayerSum > 21) 
+            { 
+                MessageBox.Show("Dealer wins!");
+                Console.Beep(261, 400);
+                Console.Beep(174, 600);
+                pot = 0;
+                CleanUp(); 
+            }
         }
-        private void Hit(Model.Hand hand)
+        private void CleanUp()
         {
-            deck.DrawCard(hand);
+            Playing = false;
+            wallet += pot;
+            pot = 0;
+            dealerHand.Cards.Clear();
+            playerHand.Cards.Clear();
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                wa.Content = "$" + wallet;
+                po.Content = "$0";
+            });
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                dealerField.Children.Clear();
+                playerField.Children.Clear();
+            });
+            if (wallet == 0)
+            {
+                MessageBox.Show("Broke! Better luck next time!");
+                Console.Beep(300, 500);
+                Console.Beep(300, 500);
+                Console.Beep(174, 1000);
+                System.Environment.Exit(0);
+            }
+            deck.ShuffleNewDeck();
+            PlayGame();
+        }
+        private void Hit(StackPanel field, Model.Hand hand)
+        {
+            AddCardVisual(field, deck.DrawCard(hand));
         }
 
         private void DealerTurn()
         {
-            while (Playing)
+            ComputerSum = GetHandValue(dealerHand);
+            Console.Beep(261, 400);
+            if (ComputerSum == 21)
             {
-                if (ComputerSum >= 16)
+                Playing = false;
+                CheckWin();
+            }
+            if (ComputerSum >= 16)
+            {
+                if (ComputerSum >= PlayerSum)
                 {
-                    int rnd = new Random().Next(0, 10);
-                    if (rnd >= 4)
-                    {
-                        Playing = false;
-                    }
-                    else
-                    {
-                        Hit(dealerHand);
-                        ComputerSum = GetHandValue(dealerHand);
-                    }
-                } 
+                    Playing = false;
+                    CheckBust();
+                    CheckWin();
+                }
                 else
                 {
-                    Hit(dealerHand);
-                    ComputerSum = GetHandValue(dealerHand); 
+                    Hit(dealerField, dealerHand);
+                    ComputerSum = GetHandValue(dealerHand);
+                    CheckBust();
+                    CheckWin();
+                    DealerTurn();
                 }
-                CheckBust();
             }
-            CheckWin();
+            else
+            {
+                Hit(dealerField, dealerHand);
+                ComputerSum = GetHandValue(dealerHand);
+                CheckBust();
+                CheckWin();
+                DealerTurn();
+            }
         }
-        
+
         private int GetHandValue(Model.Hand hand)
         {
             int i = 0;
-            foreach(Model.Card c in hand.Cards)
+            foreach (Model.Card c in hand.Cards)
             {
                 hand.AddValue(c, ref i);
             }
