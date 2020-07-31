@@ -1,0 +1,13 @@
+C:\Users\daniel\source\repos\ACNS Blackjack\bin\Debug\ACNS Blackjack.exe.config
+C:\Users\daniel\source\repos\ACNS Blackjack\bin\Debug\ACNS Blackjack.exe
+C:\Users\daniel\source\repos\ACNS Blackjack\bin\Debug\ACNS Blackjack.pdb
+C:\Users\daniel\source\repos\ACNS Blackjack\obj\Debug\MainWindow.g.cs
+C:\Users\daniel\source\repos\ACNS Blackjack\obj\Debug\App.g.cs
+C:\Users\daniel\source\repos\ACNS Blackjack\obj\Debug\ACNS Blackjack_MarkupCompile.cache
+C:\Users\daniel\source\repos\ACNS Blackjack\obj\Debug\ACNS Blackjack_MarkupCompile.lref
+C:\Users\daniel\source\repos\ACNS Blackjack\obj\Debug\MainWindow.baml
+C:\Users\daniel\source\repos\ACNS Blackjack\obj\Debug\ACNS Blackjack.g.resources
+C:\Users\daniel\source\repos\ACNS Blackjack\obj\Debug\ACNS_Blackjack.Properties.Resources.resources
+C:\Users\daniel\source\repos\ACNS Blackjack\obj\Debug\ACNS Blackjack.csproj.GenerateResource.cache
+C:\Users\daniel\source\repos\ACNS Blackjack\obj\Debug\ACNS Blackjack.exe
+C:\Users\daniel\source\repos\ACNS Blackjack\obj\Debug\ACNS Blackjack.pdb
